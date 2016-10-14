@@ -51,7 +51,7 @@ export default Ember.Component.extend({
     type: 'single', 
     _slider: null,
 
-    ionReadOnlyOptions: Ember.computed.readOnly(function(){
+    ionReadOnlyOptions: Ember.computed(function(){
         var ionOptions = {};
         var ionProperties = this.get('ionProperties');
         for (var pName in ionProperties){
@@ -60,17 +60,19 @@ export default Ember.Component.extend({
         return ionOptions;
     }),
 
-    sliderOptions: Ember.computed.readOnly(function(){
+    sliderOptions: Ember.computed(function(){
         //## Update trigger: change|finish
         var toValue = this.get('to'),
             fromValue = this.get('from'),
+            min = this.get('min'),
+            max = this.get('max'),
             options = {
                 to: 10,
                 from: 100,
-                to_min: this.get('min'),
-                from_min: this.get('min'),
-                to_max: this.get('max'),
-                from_max: this.get('max'),
+                to_min: 10,
+                from_min: 10,
+                to_max: 100,
+                from_max: 100,
                 onChange: Ember.run.bind(this, '_onSlideStart'),
                 onFinish: Ember.run.bind(this, '_onSlideStop'),
             };
@@ -81,7 +83,15 @@ export default Ember.Component.extend({
         if (toValue || toValue === 0) {
             options.to = toValue;
         }
-    
+        if (min || min === 0) {
+            options.to_min = min;
+            options.from_min = min;
+        }
+        if (max || max === 0) {
+            options.to_max = max;
+            options.from_max = max;
+        }
+            
         merge(options, this.get('ionReadOnlyOptions'));
         return options;
     }),
