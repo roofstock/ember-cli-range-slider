@@ -7,14 +7,20 @@ export default Ember.Component.extend({
     defaultOptions : {
         type               : 'single',
         values             : [],
+        min                : 10,
+        max                : 100,
         step               : 1,
         min_interval       : null,
         max_interval       : null,
         drag_interval      : false,
 
         from_fixed         : false,
+        from_min           : 10,
+        from_max           : 100,
         from_shadow        : false,
         to_fixed           : false,
+        to_min             : 10,
+        to_max             : 100,
         to_shadow          : false,
 
         prettify_enabled   : true,
@@ -58,15 +64,9 @@ export default Ember.Component.extend({
         //## Update trigger: change|finish
         var toValue = this.get('to'),
             fromValue = this.get('from'),
-            min = this.get('min'),
-            max = this.get('max'),
             options = {
                 to: 10,
                 from: 100,
-                to_min: 10,
-                from_min: 10,
-                to_max: 100,
-                from_max: 100,
                 onChange: Ember.run.bind(this, '_onSlideStart'),
                 onFinish: Ember.run.bind(this, '_onSlideStop'),
             };
@@ -77,15 +77,7 @@ export default Ember.Component.extend({
         if (toValue || toValue === 0) {
             options.to = toValue;
         }
-        if (min || min === 0) {
-            options.to_min = min;
-            options.from_min = min;
-        }
-        if (max || max === 0) {
-            options.to_max = max;
-            options.from_max = max;
-        }
-            
+
         merge(options, this.get('ionReadOnlyOptions'));
         return options;
     }),
@@ -95,7 +87,6 @@ export default Ember.Component.extend({
         var options = this.get('sliderOptions');
         this.$().ionRangeSlider(options);
         this._slider = this.$().data('ionRangeSlider');
-
     },
 
     willDestroyElement(){
