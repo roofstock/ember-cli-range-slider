@@ -9,10 +9,6 @@ var packagedSkins = {
   'simple': ['skinSimple.css', 'sprite-skin-simple.png']
 };
 
-var customSkins = {
-  'purple': ['skinPurple.css', null]
-};
-
 module.exports = {
   name: 'ember-cli-range-slider',
 
@@ -35,21 +31,6 @@ module.exports = {
     }
   },
 
-  importCustomSkin: function(skin, app) {
-    var skinAssets = customSkins[skin.toLowerCase()] || [null, null],
-        style = skinAssets[0],
-        img = skinAssets[1];
-
-    if (style){
-      app.import('app/css/ion.rangeSlider.' + style);
-    }
-    if (img){
-      app.import('app/img/' + img, {
-        destDir: 'assets/images'
-      });
-    }    
-  },
-
   included: function(app){
     this._super.included(app);
     var config = this.envConfig()[this.name] || app.options[this.name] || {};
@@ -67,7 +48,6 @@ module.exports = {
     }
     else if (config.skin){
       this.importSkin(config.skin, app);
-      this.importCustomSkin(config.skin, app);
     }
   }
 };
