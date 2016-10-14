@@ -14,6 +14,12 @@ module.exports = function(defaults) {
     behave. You most likely want to be modifying `./index.js` or app's build file
   */
 
+  app.import({
+    production: app.bowerDirectory + '/ionrangeslider/js/ion.rangeSlider.min.js',
+    development: app.bowerDirectory + '/ionrangeslider/js/ion.rangeSlider.js'
+  });
+  app.import(app.bowerDirectory + '/ionrangeslider/css/ion.rangeSlider.css');
+
   return app.toTree();
 };
 
