@@ -42,7 +42,7 @@ var ionProperties = {
     disabled           : false
 };
 
-const { merge, computed } = Ember;
+const { merge } = Ember;
 
 export default Ember.Component.extend({
 
@@ -51,7 +51,7 @@ export default Ember.Component.extend({
     type: 'single', 
     _slider: null,
 
-    ionReadOnlyOptions: computed(function(){
+    ionReadOnlyOptions: Ember.computed(function(){
         var ionOptions = {};
         for (var pName in ionProperties){
             ionOptions[pName] = this.getWithDefault(pName, ionProperties[pName]);
@@ -59,7 +59,7 @@ export default Ember.Component.extend({
         return ionOptions;
     }).readOnly(),
 
-    sliderOptions: computed.readOnly(function(){
+    sliderOptions: Ember.computed.readOnly(function(){
         //## Update trigger: change|finish
         var toValue = this.get('to'),
             fromValue = this.get('from'),
