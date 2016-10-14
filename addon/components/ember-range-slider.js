@@ -66,6 +66,10 @@ export default Ember.Component.extend({
             options = {
                 to: 10,
                 from: 100,
+                to_min: this.get('min'),
+                from_min: this.get('min'),
+                to_max: this.get('max'),
+                from_max: this.get('max'),
                 onChange: Ember.run.bind(this, '_onSlideStart'),
                 onFinish: Ember.run.bind(this, '_onSlideStop'),
             };
@@ -94,14 +98,14 @@ export default Ember.Component.extend({
     },
 
     _onSlideStart: function(changes){
-        var args = [changes.to, changes.from ];
         this.setProperties({'to': changes.to, 'from': changes.from});
-        this.sendAction('slideChange', args);
+        var args = [changes.from, changes.to ];
+        this.sendAction('slideStart', args);
     },
     
     _onSlideStop: function(changes){
-        var args = [changes.to, changes.from ];
         this.setProperties({'to': changes.to, 'from': changes.from});
-        this.sendAction('slideFinish', args);
+        var args = [changes.from, changes.to];
+        this.sendAction('slideStop', args);
     },
 });
