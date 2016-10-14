@@ -4,23 +4,17 @@ const { merge } = Ember;
 
 export default Ember.Component.extend({
 
-    ionProperties : {
+    defaultOptions : {
         type               : 'single',
         values             : [],
-        min                : 10,
-        max                : 100,
         step               : 1,
         min_interval       : null,
         max_interval       : null,
         drag_interval      : false,
 
         from_fixed         : false,
-        from_min           : 10,
-        from_max           : 100,
         from_shadow        : false,
         to_fixed           : false,
-        to_min             : 10,
-        to_max             : 100,
         to_shadow          : false,
 
         prettify_enabled   : true,
@@ -53,7 +47,7 @@ export default Ember.Component.extend({
 
     ionReadOnlyOptions: Ember.computed(function(){
         var ionOptions = {};
-        var ionProperties = this.get('ionProperties');
+        var ionProperties = this.get('defaultOptions');
         for (var pName in ionProperties){
             ionOptions[pName] = this.getWithDefault(pName, ionProperties[pName]);
         }
@@ -109,13 +103,11 @@ export default Ember.Component.extend({
     },
 
     _onSlideStart: function(changes){
-        this.setProperties({'to': changes.to, 'from': changes.from});
         var args = [changes.from, changes.to ];
         this.sendAction('slideStart', args);
     },
     
     _onSlideStop: function(changes){
-        this.setProperties({'to': changes.to, 'from': changes.from});
         var args = [changes.from, changes.to];
         this.sendAction('slideStop', args);
     },
