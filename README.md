@@ -1,18 +1,32 @@
 # Ember-cli-range-slider
 
-This README outlines the details of collaborating on this Ember addon.
+A different ember-cli addon for the ion.rangeslider jquery component. 
+This also takes a bit from the ember-cli-ion-rangeslider addon and provides 
+a data-down action-up implementation.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd ember-cli-range-slider`
-* `npm install`
-* `bower install`
+ember install ember-cli-range-slider
 
 ## Running
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+  {{ember-range-slider
+    type='double'
+    to=toAmount
+    from=fromAmount
+    min=minAmount
+    to_min=minAmount
+    from_min=minAmount
+    max=maxAmount
+    to_max=maxAmount
+    from_max=maxAmount
+    step=stepValue // ex: 10, 100, 500
+    slideStart=(action 'slideStart')
+    slideStop=(action 'slideStop')
+  }}
+
+The slideStart and slideStop events actions bubble up the to/from values as an array. From there, you can do what you please.
+
 
 ## Running Tests
 
