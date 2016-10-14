@@ -42,7 +42,7 @@ var ionProperties = {
     disabled           : false
 };
 
-const { get, merge, computed } = Ember;
+const { merge, computed } = Ember;
 
 export default Ember.Component.extend({
 
@@ -51,15 +51,23 @@ export default Ember.Component.extend({
     type: 'single', 
     _slider: null,
 
+    ionReadOnlyOptions: computed(function(){
+        var ionOptions = {};
+        for (var pName in ionProperties){
+            ionOptions[pName] = this.getWithDefault(pName, ionProperties[pName]);
+        }
+        return ionOptions;
+    }).readOnly(),
+
     sliderOptions: computed.readOnly(function(){
         //## Update trigger: change|finish
-        var toValue = get(this, 'to'),
-            fromValue = get(this, 'from'),
+        var toValue = this.get('to'),
+            fromValue = this.get('from'),
             options = {
-            to: 10,
-            from: 100,
-            onChange: Ember.run.bind(this, '_onSlideStart'),
-            onFinish: Ember.run.bind(this, '_onSlideStop'),
+                to: 10,
+                from: 100,
+                onChange: Ember.run.bind(this, '_onSlideStart'),
+                onFinish: Ember.run.bind(this, '_onSlideStop'),
             };
 
         if (fromValue || fromValue === 0) {
@@ -69,13 +77,13 @@ export default Ember.Component.extend({
             options.to = toValue;
         }
     
-        merge(options, get(this, 'ionReadOnlyOptions'));
+        merge(options, this.get('ionReadOnlyOptions'));
         return options;
     }),
 
       //## Setup/destroy
     didInsertElement(){
-        var options = get(this, 'sliderOptions');
+        var options = this.get('sliderOptions');
         this.$().ionRangeSlider(options);
         this._slider = this.$().data('ionRangeSlider');
 
