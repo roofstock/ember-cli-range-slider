@@ -9,21 +9,18 @@ a data-down action-up implementation.
 ember install ember-cli-range-slider
 
 ## Running
-
+```htmlbars
   {{ember-range-slider
     type='double'
     to=toAmount
     from=fromAmount
     min=minAmount
-    to_min=minAmount
-    from_min=minAmount
     max=maxAmount
-    to_max=maxAmount
-    from_max=maxAmount
     step=stepValue // ex: 10, 100, 500
     slideStart=(action 'slideStart')
     slideStop=(action 'slideStop')
   }}
+```
 
 The slideStart and slideStop events actions bubble up the to/from values as an array. From there, you can do what you please.
 

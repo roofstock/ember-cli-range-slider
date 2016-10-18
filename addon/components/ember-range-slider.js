@@ -7,20 +7,14 @@ export default Ember.Component.extend({
     defaultOptions : {
         type               : 'single',
         values             : [],
-        min                : 10,
-        max                : 100,
         step               : 1,
         min_interval       : null,
         max_interval       : null,
         drag_interval      : false,
 
         from_fixed         : false,
-        from_min           : 10,
-        from_max           : 100,
         from_shadow        : false,
         to_fixed           : false,
-        to_min             : 10,
-        to_max             : 100,
         to_shadow          : false,
 
         prettify_enabled   : true,
@@ -64,9 +58,17 @@ export default Ember.Component.extend({
         //## Update trigger: change|finish
         var toValue = this.get('to'),
             fromValue = this.get('from'),
+            minValue = this.get('min'),
+            maxValue = this.get('max'),
             options = {
                 to: 10,
                 from: 100,
+                min: 10,
+                max: 100,
+                to_min : 10,
+                to_max : 100,
+                from_min : 10,
+                from_max : 100,
                 onChange: Ember.run.bind(this, '_onSlideStart'),
                 onFinish: Ember.run.bind(this, '_onSlideStop'),
             };
@@ -76,6 +78,16 @@ export default Ember.Component.extend({
         }
         if (toValue || toValue === 0) {
             options.to = toValue;
+        }
+        if (minValue || minValue === 0) {
+            options.min = minValue;
+            options.to_min = minValue;
+            options.from_min = minValue;
+        }
+        if (maxValue || maxValue === 0) {
+            options.max = maxValue;
+            options.to_max = maxValue;
+            options.from_max = maxValue;
         }
 
         merge(options, this.get('ionReadOnlyOptions'));

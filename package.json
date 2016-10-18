@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-range-slider",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A different ember-cli addon for the ion.rangeslider jquery component. This also takes a bit from the ember-cli-ion-rangeslider addon and provides a data-down action-up implementation.",
   "directories": {
     "doc": "doc",
@@ -11,7 +11,10 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "",
+"repository": {
+    "type": "git",
+    "url": "https://github.com/roofstock/ember-cli-range-slider"
+  },
   "engines": {
     "node": ">= 0.10.0"
   },
