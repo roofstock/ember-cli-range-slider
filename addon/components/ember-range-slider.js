@@ -94,6 +94,14 @@ export default Ember.Component.extend({
         return options;
     }),
 
+    _onSliderValuesChanged: Ember.observer('to', 'from', function(){
+      var propName = arguments[1];
+
+      if(this._slider && !this._slider.is_active){
+        this._slider.update(this.getProperties(propName));
+      }
+    }),
+
       //## Setup/destroy
     didInsertElement(){
         var options = this.get('sliderOptions');
