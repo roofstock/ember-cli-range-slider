@@ -99,6 +99,10 @@ export default Ember.Component.extend({
 
       if(this._slider && !this._slider.is_active){
         this._slider.update(this.getProperties(propName));
+        this._onSlideStop({
+            from: this._slider.from,
+            to: this._slider.to
+        });
       }
     }),
 
