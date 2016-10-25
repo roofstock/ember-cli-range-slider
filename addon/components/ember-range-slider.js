@@ -99,7 +99,7 @@ export default Ember.Component.extend({
 
       if(this._slider && !this._slider.is_active){
         this._slider.update(this.getProperties(propName));
-        this.syncLabelValues({
+        this._syncLabelValues({
             from: this._slider.options.from,
             to: this._slider.options.to
         });
@@ -120,14 +120,16 @@ export default Ember.Component.extend({
     _onSlideStart: function(changes){
         var args = [changes.from, changes.to ];
         this.sendAction('slideStart', args);
+        this.sendAction('syncLabels', args);  
     },
     
     _onSlideStop: function(changes){
         var args = [changes.from, changes.to];
         this.sendAction('slideStop', args);
+        this.sendAction('syncLabels', args);  
     },
 
-    syncLabelValues: function(changes) {
+    _syncLabelValues: function(changes) {
         var args = [changes.from, changes.to];
         this.sendAction('syncLabels', args);        
     }
